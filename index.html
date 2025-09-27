@@ -57,16 +57,18 @@
                     </div>
                     <div class="uk-width-1-2@m">
                         <h3>Scanner Instructions</h3>
-                        <p>Provide instructions or additional details about using the scanner here.</p>
+                        <p>To generate barcodes please put any number, range of numbers, or comma separated numbers. Ex: 40 or 1-40 or 2,4,5,6,26,88 </p>
                     </div>
                     <div class="uk-width-1-2@m">
                         <h3>Barcode Generation</h3>
                         <form>
 
-                            <div class="uk-margin" uk-margin>
-                                <div uk-form-custom="target: true">
-                                    <input type="file" aria-label="Custom controls">
-                                    <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" aria-label="Custom controls" disabled>
+                            <div class="uk-margin" uk-margin uk-grid>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-stacked-text">Text</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                                    </div>
                                 </div>
                                 <button id="generateBarcode" class="uk-button uk-button-default">Generate Barcodes</button>
                             </div>
