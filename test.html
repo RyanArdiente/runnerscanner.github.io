@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>UIkit Layout Example</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/css/uikit.min.css" />
+</head>
+
+<body>
+
+    <!-- Header with Navigation -->
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <div class="uk-navbar-container uk-margin">
+            <div class="uk-container">
+                <nav class="uk-navbar" uk-navbar>
+                    <div class="uk-navbar-left">
+                        <a class="uk-navbar-item uk-logo" href="#">My Site</a>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <ul class="uk-navbar-nav">
+                            <li class="uk-active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="uk-section uk-section-default">
+        <div class="uk-container">
+            <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
+                <div>
+                    <h3>Main Content Heading</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu massa id dolor efficitur blandit. Ut non ex at turpis ultricies tincidunt in ac ipsum.</p>
+                </div>
+                <div>
+                    <h3>Sidebar or Secondary Content</h3>
+                    <p>Vivamus eget elit eu elit ultricies commodo. Nam volutpat, mi vel efficitur ultrices, ligula dolor pharetra libero, in molestie nulla nisi id enim.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="uk-section uk-section-secondary uk-light">
+        <div class="uk-container">
+            <p class="uk-text-small uk-text-center">© 2025 My Site. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/js/uikit-icons.min.js"></script>
+</body>
+
+</html>

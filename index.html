@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Runner Scanner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/css/uikit.min.css" />
+</head>
+
+<body>
+
+
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div id="test" uk-navbar>
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li>Runner Scanner</li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav" uk-switcher="connect: #component-nav-tabs; animation: uk-animation-fade">
+                        <li class="uk-active"><a href="#">Home</a></li>
+                        <li><a href="#">Scanner</a></li>
+                        <li><a href="#">Print Barcodes</a></li>
+                        <li><a href="#">Settings</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-section uk-section-default" uk-height-viewport="offset-top: true; min-height: 70vh;">
+        <div class="uk-container">
+            <!-- This is the content switcher controlled by the tabs -->
+            <div id="component-nav-tabs" class="uk-switcher uk-margin">
+                <div id="homeGrid" class="uk-container" uk-grid>
+                    <!-- HOME LANDING PAGE -->
+                    <div class="uk-width-1-2@m">
+                        <h3>Main Content Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu massa id dolor efficitur blandit. Ut non ex at turpis ultricies tincidunt in ac ipsum.</p>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <h3>Sidebar or Secondary Content</h3>
+                        <p>Vivamus eget elit eu elit ultricies commodo. Nam volutpat, mi vel efficitur ultrices, ligula dolor pharetra libero, in molestie nulla nisi id enim.</p>
+                    </div>
+                </div>
+                <div>Content for Tab 2</div>
+                <div id="barcodeGrid" class="uk-container" uk-grid>
+                    <!-- SCANNER PAGE -->
+                    <div class="uk-width-1-1@m">
+                        <h3>Scanner Section</h3>
+                        <p>This section can include scanner functionality and related information.
+                        </p>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <h3>Scanner Instructions</h3>
+                        <p>Provide instructions or additional details about using the scanner here.</p>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <h3>Barcode Generation</h3>
+                        <form>
+
+                            <div class="uk-margin" uk-margin>
+                                <div uk-form-custom="target: true">
+                                    <input type="file" aria-label="Custom controls">
+                                    <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" aria-label="Custom controls" disabled>
+                                </div>
+                                <button id="generateBarcode" class="uk-button uk-button-default">Generate Barcodes</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="uk-width-1-1@m">
+                        <svg id="barcodez" width="50px" height="50px" uk-svg></svg>
+                    </div>
+
+                </div>
+                <div>Content for Tab 4</div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="uk-section uk-section-secondary uk-position-bottom uk-light">
+        <div class="uk-container">
+            <p class="uk-text-small uk-text-center">© 2025 Ardible.io. All Rights Reserved.</p>
+        </div>
+    </div>
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/js/uikit.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/js/uikit-icons.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js "></script>
+
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>
