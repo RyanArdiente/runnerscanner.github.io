@@ -8,6 +8,7 @@ window.onload = function() {
     var _enableLogging = true;
     barcodeValidate.enableLogging(_enableLogging);
     barcodeGenerator.enableLogging(_enableLogging);
+    util.enableLogging(_enableLogging);
 
     // Your JavaScript code to run after the page loads 
     if (_enableLogging)

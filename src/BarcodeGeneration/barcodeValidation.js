@@ -65,9 +65,17 @@ function checkInputIsSingleNumber(value) {
     }
 
     isSingleNumber = util.isInteger(val);
-    if (_enableLogging)
-        util.consoleLogMessage(`isInteger check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
-
+    if (!isSingleNumber) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isInteger check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
+        return isSingleNumber;
+    }
+    //This check is different from the other checks so use ! to invert it to be similar to the other checks
+    isSingleNumber = !util.isNegativeOrZero(val);
+    if (isSingleNumber) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isNegativeOrZero check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
+    }
     return isSingleNumber;
 }
 
@@ -88,7 +96,11 @@ function checkInputIsNumberRange(value) {
     }
     if (util.isNumberLarger(start, end)) {
         if (_enableLogging)
-            util.consoleLogMessage(`Invalid range: start (${start}) must be less than or equal to end (${end}).`, "checkInputIsNumberRange:");
+            util.consoleLogMessage(`Invalid range: start (${start}) must be less than end (${end}).`, "checkInputIsNumberRange isNumberLarger:");
+        return false;
+    } else if (util.areNumbersEqual(start, end)) {
+        if (_enableLogging)
+            util.consoleLogMessage(`Invalid range: start (${start}) must be less than end (${end}).`, "checkInputIsNumberRange areNumbersEqual:");
         return false;
     }
     isNumberRange = true;
@@ -99,6 +111,7 @@ function checkInputIsNumberRange(value) {
 function checkInputIsCommaSeparatedList(value) {
     var isCommaSeparatedList = false;
     isCommaSeparatedList = util.isCommaSeparatedList(value);
+
     if (!isCommaSeparatedList) {
         if (_enableLogging)
             util.consoleLogMessage(`isCommaSeparatedList check value: ${isCommaSeparatedList}`, "checkInputIsCommaSeparatedList:");

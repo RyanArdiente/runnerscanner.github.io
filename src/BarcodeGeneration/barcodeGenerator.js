@@ -30,13 +30,21 @@ export function GenerateBarcodes(containerId, barcodeInputId, generationType) {
     var barcodes = '';
     switch (generationType) {
         case SingleNumber:
-            barcodes = barcodeGenerationSingleNumber(inputValue);
+            barcodes = barcodeGenerationSingleOrRangeNumber(inputValue);
             if (_enableLogging)
-                util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator GenerateBarcodes:");
+                util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator SingleNumber:");
             break;
         case NumberRange:
+            var [start, end] = util.splitRange(inputValue);
+            end = end + 1; //added to make end inclusive
+            barcodes = barcodeGenerationSingleOrRangeNumber(start, end);
+            if (_enableLogging)
+                util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator NumberRange:");
             break;
         case CommaSeparatedList:
+            barcodes = barcodeGenerationCommaSeparated(inputValue);
+            if (_enableLogging)
+                util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator CommaSeparated:");
             break;
         default:
             break;
@@ -46,18 +54,40 @@ export function GenerateBarcodes(containerId, barcodeInputId, generationType) {
     }
 }
 
-function barcodeGenerationSingleNumber(value) {
+function barcodeGenerationSingleOrRangeNumber(value, maxValue = 1) {
     var barcodes = '';
-    if (value > 0)
-        for (let index = 1; index <= value; index++) {
-            barcodes += bcUtil.barcodeHtml(index);
+    if (value > 0) {
+        if (maxValue > 1) {
+            for (let index = value; index < maxValue; index++) {
+                barcodes += bcUtil.barcodeHtml(index);
+            }
+        } else {
+            for (let index = 1; index <= value; index++) {
+                barcodes += bcUtil.barcodeHtml(index);
+            }
         }
+
+    }
+    if (_enableLogging)
+        util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator barcodeGenerationSingleOrRangeNumber:");
     return barcodes;
 }
 
-function barcodeGenerationNumberRange(value) {
-
+function barcodeGenerationCommaSeparated(value) {
+    var barcodes = '';
+    var val = util.splitCommaSeparatedList(value);
+    if (val.length) {
+        val = val.sort((A, B) => A - B);
+        for (let index = 0; index < val.length; index++) {
+            if (!util.isNegativeOrZero(val[index]))
+                barcodes += bcUtil.barcodeHtml(val[index]);
+        }
+    }
+    if (_enableLogging)
+        util.consoleLogMessage(`barcodes: ${barcodes}`, "barcodeGenerator barcodeGenerationSingleOrRangeNumber:");
+    return barcodes;
 }
+
 
 function barcodeGeneration(outputContainer, value) {
     outputContainer.innerHTML = value;

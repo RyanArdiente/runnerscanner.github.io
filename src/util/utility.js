@@ -1,8 +1,11 @@
 let _enableLogging = false; //Default set to false
 
 export function enableLogging(enable) {
-    if (isBoolean(enable))
+    if (isBoolean(enable)) {
+        if (_enableLogging)
+            consoleLogMessage(`_enableLogging: ${_enableLogging}`, 'utility:')
         _enableLogging = enable;
+    }
 }
 
 export function isNumber(value) {
@@ -33,6 +36,12 @@ export function isNumeric(value) {
         consoleLogMessage(`value: ${val}`, 'isNumeric:');
     return val;
 }
+export function isNegativeOrZero(value) {
+    const val = value <= 0;
+    if (_enableLogging)
+        consoleLogMessage(`value: ${val}`, 'isNegativeOrZero:');
+    return val;
+}
 
 export function isBoolean(value) {
     const val = typeof value === "boolean"
@@ -56,6 +65,14 @@ export function isNumberLarger(first, second) {
     }
     return val
 }
+export function areNumbersEqual(first, second) {
+    const val = first == second;
+    if (_enableLogging) {
+        consoleLogMessage(`value: ${val}`, 'areNumbersEqual:');
+        consoleLogMessage(`first: ${first}, second: ${second}`, 'areNumbersEqual:');
+    }
+    return val
+}
 export function splitRange(value) {
     var val = value.split("-").map((n) => parseInt(n.trim(), 10))
     if (_enableLogging)
@@ -64,14 +81,17 @@ export function splitRange(value) {
 }
 
 export function isCommaSeparatedList(value) {
-    var val = /^\d+(,\s*\d+)*$/.test(value);
+    var cleanedList = splitCommaSeparatedList(value).join();
+    var val = /^\d+(,\d+)*$/.test(cleanedList);
     if (_enableLogging)
         consoleLogMessage(`value: ${val}`, 'isCommaSeparatedList:');
     return val;
 }
-
+//2,4,5,6,26,88,  2, 4, 33,0
 export function splitCommaSeparatedList(value) {
-    var val = value.split(",").map((n) => parseInt(n.trim(), 10));
+    var uniqueVal = value.split(",").map((n) => parseInt(n.trim(), 10));
+    var val = [...new Set(uniqueVal)];
+    val = val.filter(number => number > 0);
     if (_enableLogging)
         consoleLogMessage(`value: ${val}`, 'splitCommaSeparatedList:');
     return val;
@@ -79,8 +99,9 @@ export function splitCommaSeparatedList(value) {
 
 
 
+
 export function consoleLogMessage(value, funcName = '') {
     const message = `${funcName} ${value}`.trim();
     console.log(message);
 }
-export default { enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, isNumberRange, isNumberLarger, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };
+export default { enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, isNegativeOrZero, isNumberRange, isNumberLarger, areNumbersEqual, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };
