@@ -32,42 +32,43 @@
         </div>
     </nav>
 
-    <div class="uk-section uk-section-default" uk-height-viewport="offset-top: true; min-height: 70vh;">
+    <div class="uk-section uk-section-default">
         <div class="uk-container">
             <!-- This is the content switcher controlled by the tabs -->
             <div id="component-nav-tabs" class="uk-switcher uk-margin">
                 <div id="homeGrid" class="uk-container" uk-grid>
                     <!-- HOME LANDING PAGE -->
                     <div class="uk-width-1-2@m">
-                        <h3>Main Content Heading</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu massa id dolor efficitur blandit. Ut non ex at turpis ultricies tincidunt in ac ipsum.</p>
+                        <h3>Prototype Scanner App</h3>
+                        <p>This is a prototype for a scanning app that also allows for generating barcodes on the fly. Primary use for this is to demonstrate how easy this can be used for a school jogging marathon. To quickly keep track of student progress
+                            while allowing for quick scanning of a barcode to take notation and keep track of laps. There are many different applications that this can solve, not just keeping track of how many laps someone has ran. This demo shows how
+                            quick and easy it can to get up and running.</p>
                     </div>
                     <div class="uk-width-1-2@m">
-                        <h3>Sidebar or Secondary Content</h3>
-                        <p>Vivamus eget elit eu elit ultricies commodo. Nam volutpat, mi vel efficitur ultrices, ligula dolor pharetra libero, in molestie nulla nisi id enim.</p>
+                        <h3>Progressive Web App</h3>
+                        <p>This app has the capability of being used offline and cached to your browser. You can use it out on the field and still be able to scan and keep track of times scanned.</p>
                     </div>
                 </div>
                 <div>Content for Tab 2</div>
                 <div id="barcodeGrid" class="uk-container" uk-grid>
                     <!-- SCANNER PAGE -->
                     <div class="uk-width-1-1@m">
-                        <h3>Scanner Section</h3>
-                        <p>This section can include scanner functionality and related information.
+                        <h3>Barcode Generation</h3>
+                        <p>A quick way to generate many barcodes or a specific set of barcodes. To print them out please use the print functionality from your browser.
                         </p>
                     </div>
                     <div class="uk-width-1-2@m">
-                        <h3>Scanner Instructions</h3>
+                        <h3>Generator Instructions</h3>
                         <p>To generate barcodes please put any number, range of numbers, or comma separated numbers. Ex: 40 or 1-40 or 2,4,5,6,26,88 </p>
                     </div>
                     <div class="uk-width-1-2@m">
-                        <h3>Barcode Generation</h3>
+                        <h3>Barcode Input</h3>
                         <form id="generateBarcodeForm">
 
-                            <div class="uk-margin" uk-margin uk-grid>
-                                <div class="uk-margin">
-                                    <label class="uk-form-label" for="barcodeInput">Text</label>
+                            <div class="uk-margin" uk-margin>
+                                <div uk-form-custom="target: true">
                                     <div class="uk-form-controls">
-                                        <input class="uk-input" id="barcodeInput" type="text" placeholder="Input Number, Range, Number List" required>
+                                        <input class="uk-input uk-form-width-medium" id="barcodeInput" type="text" placeholder="Input Number, Range, Number List" required>
                                     </div>
                                 </div>
                                 <button id="generateBarcode" class="uk-button uk-button-default">Generate Barcodes</button>
@@ -76,7 +77,7 @@
                         </form>
                     </div>
                     <div class="uk-width-1-1@m">
-                        <svg id="barcodez" width="50px" height="50px" uk-svg></svg>
+                        <div id="generatedBarcodeContainer" uk-grid></div>
                     </div>
 
                 </div>
@@ -85,11 +86,11 @@
         </div>
     </div>
     <!-- Footer -->
-    <div class="uk-section uk-section-secondary uk-position-bottom uk-light">
+    <!--  <div class="uk-section uk-section-secondary uk-position-bottom uk-light">
         <div class="uk-container">
             <p class="uk-text-small uk-text-center">© 2025 Ardible.io. All Rights Reserved.</p>
         </div>
-    </div>
+    </div> -->
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/js/uikit.min.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/js/uikit-icons.min.js "></script>

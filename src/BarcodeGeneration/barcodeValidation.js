@@ -20,12 +20,23 @@ export function validateBarcodeForm(id) {
         //do something
         if (_enableLogging)
             util.consoleLogMessage("Inside IF for single number", "validateBarcodeForm");
+        return [true, "SingleNumber"];
 
     } else if (checkInputIsNumberRange(inputValue)) {
         //do something
         if (_enableLogging)
             util.consoleLogMessage("Inside ELSE IF for number range", "validateBarcodeForm");
-    }
+        return [true, "NumberRange"];
+
+    } else if (checkInputIsCommaSeparatedList(inputValue)) {
+        //do something
+        if (_enableLogging)
+            util.consoleLogMessage("Inside ELSE IF 2 for comma-separated list", "validateBarcodeForm");
+        return [true, "CommaSeparatedList"];
+    } else
+        return [false, "None"];
+
+
 }
 
 function checkInputIsSingleNumber(value) {
@@ -34,7 +45,7 @@ function checkInputIsSingleNumber(value) {
     isSingleNumber = util.isNumeric(value);
     if (!isSingleNumber) {
         if (_enableLogging)
-            util.consoleLogMessage(`isNumeric check value: ${isSingleNumber}`);
+            util.consoleLogMessage(`isNumeric check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
         return isSingleNumber;
     }
     const val = Number(value);
@@ -42,14 +53,14 @@ function checkInputIsSingleNumber(value) {
 
     if (!isSingleNumber) {
         if (_enableLogging)
-            util.consoleLogMessage(`isNumber check value: ${isSingleNumber}`);
+            util.consoleLogMessage(`isNumber check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
         return isSingleNumber;
     }
 
     isSingleNumber = util.isFinite(val);
     if (!isSingleNumber) {
         if (_enableLogging)
-            util.consoleLogMessage(`isFinite check value: ${isSingleNumber}`);
+            util.consoleLogMessage(`isFinite check value: ${isSingleNumber}`, 'checkInputIsSingleNumber:');
         return isSingleNumber;
     }
 
@@ -83,6 +94,17 @@ function checkInputIsNumberRange(value) {
     isNumberRange = true;
 
     return isNumberRange;
+}
+
+function checkInputIsCommaSeparatedList(value) {
+    var isCommaSeparatedList = false;
+    isCommaSeparatedList = util.isCommaSeparatedList(value);
+    if (!isCommaSeparatedList) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isCommaSeparatedList check value: ${isCommaSeparatedList}`, "checkInputIsCommaSeparatedList:");
+    }
+
+    return isCommaSeparatedList;
 }
 
 export default { validateBarcodeForm };
