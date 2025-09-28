@@ -1,0 +1,11 @@
+#interactive video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+}
+
+#interactive canvas.drawingBuffer {
+    z-index: 2;
+    pointer-events: none;
+    /* so you can still interact with UI elements */
+}

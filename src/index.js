@@ -6,6 +6,7 @@ import * as util from "/src/util/utility.js"
 
 window.onload = function() {
     var _enableLogging = true;
+
     barcodeValidate.enableLogging(_enableLogging);
     barcodeGenerator.enableLogging(_enableLogging);
     util.enableLogging(_enableLogging);
@@ -22,7 +23,6 @@ window.onload = function() {
     UIkit.grid('#barcodeGrid');
     UIkit.formCustom('#generateBarcodeForm');
 
-
     const barcodeForm = document.getElementById('generateBarcodeForm');
     const containerId = "generatedBarcodeContainer";
     const input = 'barcodeInput';
@@ -38,4 +38,4 @@ window.onload = function() {
                 util.consoleLogMessage("Barcodes Validation failed!", "index.js generateBarcode submit:");
         }
     });
-};
+}
