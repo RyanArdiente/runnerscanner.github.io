@@ -1,12 +1,14 @@
 import * as barcodeValidate from "/src/BarcodeGeneration/barcodeValidation.js"
 import * as barcodeGenerator from "/src/BarcodeGeneration/barcodeGenerator.js"
+import * as camera from "/src/util/cameraInit.js"
+import * as barcodeRepository from "/src/BarcodeProcessing/BarcodeRepository.js"
 
 import * as util from "/src/util/utility.js"
 
 
 window.onload = function() {
     var _enableLogging = true;
-
+    var _cameraEnabled = false;
     barcodeValidate.enableLogging(_enableLogging);
     barcodeGenerator.enableLogging(_enableLogging);
     util.enableLogging(_enableLogging);
@@ -38,4 +40,13 @@ window.onload = function() {
                 util.consoleLogMessage("Barcodes Validation failed!", "index.js generateBarcode submit:");
         }
     });
+    const enableCamera = document.getElementById('enableCamera');
+
+    enableCamera.addEventListener("click", function(event) {
+        if (!_cameraEnabled) {
+            _cameraEnabled = true;
+            camera.initQuagga();
+        }
+    });
+
 }

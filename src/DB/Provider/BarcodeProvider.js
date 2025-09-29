@@ -1,6 +1,5 @@
-import { consoleLogMessage } from '../../util/utility';
 import db from '../db.js';
-import * as util from "../util/utility.js"
+import * as util from "../../util/utility.js"
 
 let _enableLogging = false; //Default set to false
 
@@ -19,3 +18,5 @@ async function getAllBarcodes() {
             util.consoleLogMessage(`Failed to retrieve barcodes error: ${error}`, 'getAllBarcodes:');
     }
 }
+
+export default { getAllBarcodes };

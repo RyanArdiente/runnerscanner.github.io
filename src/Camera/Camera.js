@@ -1,5 +1,3 @@
-import br from "../BarcodeProcessing/BarcodeRepository.js"
-
 document.addEventListener("DOMContentLoaded", function() {
     var resultCollector = Quagga.ResultCollector.create({
         capture: true,
@@ -300,7 +298,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (App.lastResult !== code) {
             App.lastResult = code;
-            br.handleScan(code);
         }
     });
 });

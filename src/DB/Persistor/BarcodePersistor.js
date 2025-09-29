@@ -1,6 +1,5 @@
-import { consoleLogMessage } from '../../util/utility';
-import db from '../db.js';
-import * as util from "../util/utility.js"
+import db from '/src/db/db.js';
+import * as util from "/src/util/utility.js"
 
 let _enableLogging = false; //Default set to false
 
@@ -19,3 +18,4 @@ async function addBarcode(barcodeId, timestamp) {
             util.consoleLogMessage(`Failed to add barcode error: ${error}`, 'addBarcode:');
     }
 }
+export default { addBarcode };

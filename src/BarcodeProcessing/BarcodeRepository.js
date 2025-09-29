@@ -1,6 +1,6 @@
-import * as util from "../util/utility.js"
-import bProvider from "../DB/Provider/BarcodeProvider.js"
-import bPersistor from "../DB/Persistor/BarcodePersistor.js"
+import * as util from "/src/util/utility.js"
+import bProvider from "/src/DB/Provider/BarcodeProvider.js"
+import bPersistor from "/src/DB/Persistor/BarcodePersistor.js"
 let _enableLogging = false; //Default set to false
 // Time threshold (ms) to prevent duplicate scans
 const SCAN_COOLDOWN = 5000; // 5 seconds for testing
@@ -35,7 +35,7 @@ async function getAllBarcodes(sortOrder) {
     }
 }
 
-function handleScan(barcode) {
+export function handleScan(barcode) {
     const now = Date.now();
     const lastScans = JSON.parse(localStorage.getItem("scanData") || "{}");
 
