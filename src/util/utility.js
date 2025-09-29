@@ -87,7 +87,7 @@ export function isCommaSeparatedList(value) {
         consoleLogMessage(`value: ${val}`, 'isCommaSeparatedList:');
     return val;
 }
-//2,4,5,6,26,88,  2, 4, 33,0
+
 export function splitCommaSeparatedList(value) {
     var uniqueVal = value.split(",").map((n) => parseInt(n.trim(), 10));
     var val = [...new Set(uniqueVal)];

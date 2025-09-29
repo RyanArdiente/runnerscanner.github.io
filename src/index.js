@@ -15,7 +15,7 @@ window.onload = function() {
     if (_enableLogging)
         util.consoleLogMessage("Page and all resources fully loaded!", "index.js onload");
     // // Example: Manipulate DOM elements 
-    UIkit.navbar('#test');
+    UIkit.navbar('#runnerscannerNavbar');
     UIkit.switcher('.uk-switcher');
     UIkit.tab('#component-nav-tabs', { connect: '#component-nav-tabs' });
     UIkit.svg('#barcodez');
