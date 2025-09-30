@@ -96,7 +96,17 @@ export function splitCommaSeparatedList(value) {
         consoleLogMessage(`value: ${val}`, 'splitCommaSeparatedList:');
     return val;
 }
+export function sortBarcodeResultByIdandTimestamp(arr) {
+    return arr.sort((a, b) => {
+        // Compare by id (descending)
+        if (a.id !== b.id) {
+            return b.id - a.id;
+        }
 
+        // Compare by timestamp (ascending → oldest first)
+        return new Date(a.timestamp) - new Date(b.timestamp);
+    });
+}
 
 
 
@@ -104,4 +114,4 @@ export function consoleLogMessage(value, funcName = '') {
     const message = `${funcName} ${value}`.trim();
     console.log(message);
 }
-export default { enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, isNegativeOrZero, isNumberRange, isNumberLarger, areNumbersEqual, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };
+export default { enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, sortBarcodeResultByIdandTimestamp, isNegativeOrZero, isNumberRange, isNumberLarger, areNumbersEqual, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };

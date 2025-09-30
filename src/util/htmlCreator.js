@@ -11,5 +11,51 @@ export function barcodeHtml(value) {
     return html;
 }
 
+export function allResultsTableCreate(allResults, tableId) {
+    new gridjs.Grid({
+        columns: [{
+                id: "barcodeId",
+                name: "Runner",
+                sort: {
+                    direction: 'desc'
+                }
+            },
+            {
+                id: "formattedTime",
+                name: "Time",
+                sort: {
+                    enabled: true,
+                    compare: (a, b) => new Date(a) - new Date(b) // proper chronological sort
+                }
+            }
+        ],
+        data: allResults,
+        sort: true,
 
-export default { barcodeHtml };
+        pagination: {
+            limit: 10,
+            summary: false
+        }
+    }).render(document.getElementById(tableId));
+}
+
+export function allCountsTableCreate(allCounts, tableId) {
+    new gridjs.Grid({
+        columns: [{
+            id: "barcodeId",
+            name: "Runner",
+
+        }, {
+            id: "Counted",
+            name: "Laps Counted",
+
+        }],
+        data: allCounts,
+        pagination: {
+            limit: 10,
+            summary: false
+        }
+    }).render(document.getElementById(tableId));
+}
+
+export default { barcodeHtml, allResultsTableCreate, allCountsTableCreate };

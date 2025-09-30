@@ -2,15 +2,18 @@ import * as barcodeValidate from "/src/BarcodeGeneration/barcodeValidation.js"
 import * as barcodeGenerator from "/src/BarcodeGeneration/barcodeGenerator.js"
 import * as camera from "/src/util/cameraInit.js"
 import * as barcodeRepository from "/src/BarcodeProcessing/BarcodeRepository.js"
+import * as htmlGen from "/src/util/htmlCreator.js"
 
 import * as util from "/src/util/utility.js"
 
 
-window.onload = function() {
+window.onload = async function() {
     var _enableLogging = true;
     var _cameraEnabled = false;
     barcodeValidate.enableLogging(_enableLogging);
     barcodeGenerator.enableLogging(_enableLogging);
+    barcodeRepository.enableLogging(_enableLogging);
+
     util.enableLogging(_enableLogging);
 
     // Your JavaScript code to run after the page loads 
@@ -48,5 +51,14 @@ window.onload = function() {
             camera.initQuagga();
         }
     });
+    const allResults = await barcodeRepository.getAllBarcodes();
+    const allCounts = await barcodeRepository.getAllBarcodeCounts();
+    if (_enableLogging)
+        util.consoleLogMessage(`allResults: ${allResults}`, "index.js onload");
+    if (_enableLogging)
+        util.consoleLogMessage(`allCounts: ${allCounts}`, "index.js onload");
 
-}
+    htmlGen.allCountsTableCreate(allCounts, "allCountsTable");
+    htmlGen.allResultsTableCreate(allResults, "allResultsTable");
+
+};

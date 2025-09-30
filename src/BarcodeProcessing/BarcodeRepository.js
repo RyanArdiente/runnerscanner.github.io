@@ -23,18 +23,57 @@ async function addBarcode(barcodeId) {
             util.consoleLogMessage(`Error occured while trying to add new barcode. error: ${error}`, "addBarcode:");
     }
 }
-async function getAllBarcodes(sortOrder) {
+export async function getAllBarcodes() {
     try {
         var barcodes = await bProvider.getAllBarcodes();
+
+        // Sort using the raw timestamp
+        //barcodes = util.sortBarcodeResultByIdandTimestamp(barcodes);
+
+        // Add a formatted field for display instead of overwriting timestamp
+        for (const barcode of barcodes) {
+            const now = new Date(barcode.timestamp); // original timestamp still intact
+
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+            barcode.barcodeId = Number(barcode.barcodeId);
+            barcode.formattedTime = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+        }
         if (_enableLogging)
-            util.consoleLogMessage(`Get all Barcodes retrieved. barcodes: {barcodes}`, "getAllBarcodes:");
+            util.consoleLogMessage(`Get all Barcodes retrieved. barcodes: ${barcodes}`, "getAllBarcodes:");
         return barcodes;
     } catch (error) {
         if (_enableLogging)
             util.consoleLogMessage(`Error occured while trying to get all barcodes. error: ${error}`, "getAllBarcodes:");
     }
 }
+export async function getAllBarcodeCounts() {
+    try {
+        var barcodes = await bProvider.getAllBarcodes();
+        var counts = barcodes.reduce((accumulator, currentObject) => {
+            const id = currentObject.barcodeId;
+            accumulator[id] = (accumulator[id] || 0) + 1;
+            return accumulator;
+        }, {});
+        const keys = Object.keys(counts);
+        const values = Object.values(counts);
+        var returnCount = [];
+        for (let index = 0; index < keys.length; index++) {
+            const count = { 'barcodeId': `${keys[index]}`, 'Counted': `${values[index]}` };
 
+            returnCount.push(count);
+
+        }
+        if (_enableLogging)
+            util.consoleLogMessage(`Get all Barcodes retrieved. barcodes: ${barcodes}`, "getAllBarcodeCounts:");
+        return returnCount;
+    } catch (error) {
+        if (_enableLogging)
+            util.consoleLogMessage(`Error occured while trying to get all barcodes. error: ${error}`, "getAllBarcodeCounts:");
+    }
+}
 export function handleScan(barcode) {
     const now = Date.now();
     const lastScans = JSON.parse(localStorage.getItem("scanData") || "{}");
