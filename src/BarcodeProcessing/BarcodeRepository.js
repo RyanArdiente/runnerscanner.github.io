@@ -1,9 +1,10 @@
 import * as util from "/src/util/utility.js"
 import bProvider from "/src/DB/Provider/BarcodeProvider.js"
 import bPersistor from "/src/DB/Persistor/BarcodePersistor.js"
+
 let _enableLogging = false; //Default set to false
 // Time threshold (ms) to prevent duplicate scans
-const SCAN_COOLDOWN = 5000; // 5 seconds for testing
+//const SCAN_COOLDOWN = 5000; // 5 seconds for testing
 //const SCAN_COOLDOWN = 30000 // THIS WILL BE THE INITIAL COOLDOWN
 
 export function enableLogging(enable) {
@@ -21,6 +22,16 @@ async function addBarcode(barcodeId) {
     } catch (error) {
         if (_enableLogging)
             util.consoleLogMessage(`Error occured while trying to add new barcode. error: ${error}`, "addBarcode:");
+    }
+}
+export async function clearBarcodeTable() {
+    try {
+        await bPersistor.clearTable();
+        if (_enableLogging)
+            util.consoleLogMessage(`Clear Barcode table successful`, "clearBarcodeTable:");
+    } catch (error) {
+        if (_enableLogging)
+            util.consoleLogMessage(`Error occured while trying to clear Barcode table. error: ${error}`, "clearBarcodeTable:");
     }
 }
 export async function getAllBarcodes() {
@@ -74,9 +85,10 @@ export async function getAllBarcodeCounts() {
             util.consoleLogMessage(`Error occured while trying to get all barcodes. error: ${error}`, "getAllBarcodeCounts:");
     }
 }
-export function handleScan(barcode) {
+export function handleScan(barcode, SCAN_COOLDOWN = 15000) {
     const now = Date.now();
     const lastScans = JSON.parse(localStorage.getItem("scanData") || "{}");
+
 
     if (lastScans[barcode]) {
         const diff = now - lastScans[barcode];
@@ -92,6 +104,8 @@ export function handleScan(barcode) {
                 util.consoleLogMessage(` Cooldown has passed, removed barcode record: ${barcode}`, 'handleScan:');
         }
     }
+    if (!validateBarcode(barcode))
+        return false;
 
     // Record new scan timestamp
     lastScans[barcode] = now;
@@ -103,4 +117,43 @@ export function handleScan(barcode) {
 }
 
 
+function validateBarcode(value) {
+    var passedValidation = false;
+
+    passedValidation = util.isNumeric(value);
+    if (!passedValidation) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isNumeric check value: ${passedValidation}`, 'validateBarcode:');
+        return passedValidation;
+    }
+    const val = Number(value);
+    passedValidation = util.isNumber(val);
+
+    if (!passedValidation) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isNumber check value: ${passedValidation}`, 'validateBarcode:');
+        return passedValidation;
+    }
+
+    passedValidation = util.isFinite(val);
+    if (!passedValidation) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isFinite check value: ${passedValidation}`, 'validateBarcode:');
+        return passedValidation;
+    }
+
+    passedValidation = util.isInteger(val);
+    if (!passedValidation) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isInteger check value: ${passedValidation}`, 'validateBarcode:');
+        return passedValidation;
+    }
+    //This check is different from the other checks so use ! to invert it to be similar to the other checks
+    passedValidation = !util.isNegativeOrZero(val);
+    if (passedValidation) {
+        if (_enableLogging)
+            util.consoleLogMessage(`isNegativeOrZero check value: ${passedValidation}`, 'validateBarcode:');
+    }
+    return passedValidation;
+}
 export default { handleScan, getAllBarcodes };

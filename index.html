@@ -26,7 +26,7 @@
                         <li class="uk-active"><a href="#">Home</a></li>
                         <li><a href="#">Print Barcodes</a></li>
                         <li><a href="#">Live Scanner</a></li>
-                        <li><a href="#">Display Scanned Stats</a></li>
+                        <li><a href="#">Display Runner Stats</a></li>
                         <li><a href="#">Settings</a></li>
 
                     </ul>
@@ -40,28 +40,35 @@
         <div class="uk-container">
             <!-- This is the content switcher controlled by the tabs -->
             <div id="component-nav-tabs" class="uk-switcher uk-margin">
-                <div id="homeGrid" class="uk-container" uk-grid>
+                <div id="homeGrid" class="uk-container uk-margin-remove-top" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <h1>Runner Scanner</h1>
+                    </div>
                     <!-- HOME LANDING PAGE -->
                     <div class="uk-width-1-2@m">
-                        <h3>Prototype Scanner App</h3>
-                        <p>This is a prototype for a scanning app that also allows for generating barcodes on the fly. Primary use for this is to demonstrate how easy this can be used for a school jogging marathon. To quickly keep track of student progress
-                            while allowing for quick scanning of a barcode to take notation and keep track of laps. There are many different applications that this can solve, not just keeping track of how many laps someone has ran. This demo shows how
-                            quick and easy it can to get up and running.</p>
+                        <h3>Application Information</h3>
+                        <p>This is a demo for a multiple runner lap tracking app, that also allows for generating barcodes on the fly. Primary use for this is to demonstrate how easy this can be used for a school jogging marathon. To quickly keep track of
+                            multiple runner's progress while allowing for quick scanning of a barcode to take lap notation, keep an audit of a timestamp and keep track of laps. There are many different applications that this can solve, not just keeping
+                            track of how many laps someone has ran. This demo shows how quick and easy the app can be used to get up and start keeping track.</p>
                     </div>
                     <div class="uk-width-1-2@m">
                         <h3>Progressive Web App</h3>
-                        <p>This app has the capability of being used offline and cached to your browser. You can use it out on the field and still be able to scan and keep track of times scanned.</p>
+                        <p>This app has the capability of being used offline and cached to your browser. You can use it out on the field and still be able to scan and keep track of times scanned. The demo data is store locally in your browser's cache.</p>
                     </div>
                     <div class="uk-width-1-1@m">
-                        <h3>Demo Barcode Generation Functionality</h3>
+                        <h3>Racer Barcode Generation</h3>
                         <p>Please click <a href="#" uk-switcher-item="1">here to switch to the next Part of the Demo</a></p>
                     </div>
                 </div>
-                <div id="barcodeGrid" class="uk-container" uk-grid>
+                <div id="barcodeGrid" class="uk-container uk-margin-remove-top" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <h1>Print Barcodes</h1>
+                    </div>
                     <!-- START Barcode Generation PAGE -->
                     <div class="uk-width-1-1@m">
                         <h3>Barcode Generation</h3>
-                        <p>The Demo app provides a quick way to generate many barcodes or a specific set of barcodes.<br/> To print them out please use the print functionality from your browser.
+                        <p>The Demo app provides a quick way to generate many barcodes or a specific set of barcodes. The barcodes will only be unique as long as you don't give different multiple runners the same barcode number. The a future version will
+                            have a way to uniquely create barcodes. Print out you barcodes and attach them to your runner. When the runner completes a lap you just scan the barcode, once you hear the scan complete chime you scan the next barcode. <br/>                            To print them out please use the print functionality from your browser.
                         </p>
                     </div>
                     <div class="uk-width-1-2@m">
@@ -84,7 +91,7 @@
                         </form>
                     </div>
                     <div class="uk-width-1-1@m">
-                        <h3>Demo Scanner Functionality</h3>
+                        <h3>Create Race</h3>
                         <p>Please click <a href="#" uk-switcher-item="2">here to switch to the next Part of the Demo</a></p>
                     </div>
                     <div class="uk-width-1-1@m">
@@ -93,10 +100,26 @@
                     <!-- END Barcode Generation PAGE -->
 
                 </div>
-                <div class="uk-container" uk-grid>
+                <div class="uk-container uk-margin-remove-top" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <h1>Live Scanner</h1>
+                    </div>
                     <!-- START Barcode SCANNER PAGE -->
                     <div class="uk-width-1-1@m">
-                        <h3>Barcode Scanner</h3>
+                        <h3>Start Race</h3>
+                        <p>Here we can begin the race and start tracking the time for each runner that you scan. Clicking the enable camera button will start the race timer and begin keeping track of the race. The race will end when you click on the disable
+                            camera button. A start time will not overwrite the current start timer so if you need to refresh your page you can do so. Once a race has started and ended the scanner will no longer allow scanning.
+                        </p>
+                    </div>
+                    <div class="uk-width-1-1@m">
+                        <h4>Current Race: <span id="currentRace">1</span><span></span>
+                        </h4>
+                        <h5>Start: <span id="raceStartTime">N/A</span>
+                            <br/> End: <span id="raceEndTime">N/A</span></h5>
+                    </div>
+                    <!-- START Barcode SCANNER PAGE -->
+                    <div class="uk-width-1-1@m">
+                        <h3>Live Scanner</h3>
                         <p>Here we demonstrate how the scanner functions. Please click the Enable Camera button to demo the camera<br/> If you dont have a way to print out the demo barcodes please click the button on the right to emulate how the camera functionality
                             works.
                         </p>
@@ -110,7 +133,7 @@
                         <div class="controls">
                             <fieldset class="input-group">
                                 <button id="enableCamera" class="uk-button uk-button-primary start">Enable Camera</button>
-                                <button class="uk-button uk-button-danger stop">Disable Camera</button>
+                                <button id="disableCamera" class="uk-button uk-button-danger stop">Disable Camera</button>
                             </fieldset>
                             <fieldset class="reader-config-group">
                                 <label>
@@ -135,6 +158,16 @@
                                     <select name="input-stream_constraints" id="deviceSelection">
                                     </select>
                                 </label>
+                                <label>
+                                    <span>Lap Cooldown</span>
+                                    <select name="lapCooldown" id="lapCooldown">
+                                        <option value="0">0</option>
+                                        <option value="15" selected="selected">15</option>
+                                        <option value="30">30</option>
+                                        <option value="60">60</option>
+                                        <option value="120">120</option>
+                                    </select>
+                                </label>
                             </fieldset>
                         </div>
                         <div id="cameraContainerDiv" class="uk-position-relative uk-inline" style="width:640px; height:480px;">
@@ -148,28 +181,43 @@
                     <!-- END Barcode SCANNER PAGE -->
 
                 </div>
-                <div class="uk-container" uk-grid>
+                <div class="uk-container uk-margin-remove-top" uk-grid>
+                    <div class="uk-width-1-1@m">
+                        <h1>Display Runner Stats</h1>
+                    </div>
                     <!-- START Barcode Display PAGE -->
                     <div class="uk-width-1-1@m">
                         <h3>Barcode Display</h3>
-                        <p>Here you can see </p>
+                        <p>Here you can see the stats of the runners that have been scanned.</p>
+                        <button class="uk-button uk-button-primary" id="reloadGrids">Reload Grids</button>
                     </div>
+                    <ul uk-accordion="multiple: true">
+                        <li class="uk-open">
+                            <a class="uk-accordion-title" href>Runner Stats</a>
+                            <div class="uk-accordion-content">
+                                <div id="allCountsTable"></div>
+                            </div>
+                        </li>
+                        <li class="uk-open">
+                            <a class="uk-accordion-title" href>All Runner Stats</a>
+                            <div class="uk-accordion-content">
+                                <div class="uk-width-1-1@m">
+                                    <div class="uk-width-1-1@m">
+                                        <div id="allResultsTable"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
 
-                    <div class="uk-width-1-1@m">
-                        <h5>Runner Stats</h5>
-                        <div id="allCountsTable"></div>
-                    </div>
-                    <div class="uk-width-1-1@m">
-                        <h5>All Runner Stats</h5>
-                        <div id="allResultsTable"></div>
-                    </div>
+
                     <!-- END Barcode Display PAGE -->
                 </div>
                 <div class="uk-container" uk-grid>
                     <!-- START Barcode Settings PAGE -->
                     <div class="uk-width-1-1@m">
                         <h3>Barcode Settings</h3>
-                        <p>RESET Database</p>
+                        <p>Click here to <button class="uk-button uk-button-danger" uk-toggle="target: #modal-close-default">RESET Database</button></p>
                     </div>
                     <!-- END Barcode Settings PAGE -->
                 </div>
@@ -177,6 +225,19 @@
             </div>
         </div>
     </div>
+
+    <!-- This is the modal with the default close button -->
+    <div id="modal-close-default" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">Default</h2>
+            <p>Deleting records is a permanent action are you sure you would like to continue?</p>
+            <button class="uk-button uk-button-primary uk-close" type="button">Cancel</button> <button class="uk-button uk-button-danger" type="button" id="DeleteTable">DELETE RECORDS</button>
+
+
+        </div>
+    </div>
+
     <!-- Footer -->
     <!--  <div class="uk-section uk-section-secondary uk-position-bottom uk-light">
         <div class="uk-container">
@@ -189,38 +250,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.min.js"></script>
-    <!--  <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Quagga.init({
-                inputStream: {
-                    type: "LiveStream",
-                    target: document.querySelector('#interactive'), // injects video here
-                    constraints: {
-                        facingMode: "environment" // use back camera if available
-                    }
-                },
-                locator: {
-                    patchSize: "medium",
-                    halfSample: true
-                },
-                decoder: {
-                    readers: ["code_128_reader"] // adjust to your barcode type
-                },
-                locate: true
-            }, function(err) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                Quagga.start();
-            });
-
-            Quagga.onDetected(function(result) {
-                console.log("Detected: ", result.codeResult.code);
-            });
-        });
-    </script>
-    <script src="/src/Camera/Camera.js"></script>-->
     <script src="./src/dexie.min.js"></script>
     <script type="module" src="/src/index.js"></script>
 </body>

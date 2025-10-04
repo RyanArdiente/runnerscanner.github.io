@@ -6,6 +6,7 @@ let _enableLogging = false; //Default set to false
 export function enableLogging(enable) {
     _enableLogging = enable;
 }
+util.enableLogging(_enableLogging);
 
 export async function getAllBarcodes() {
     try {

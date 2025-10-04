@@ -108,10 +108,30 @@ export function sortBarcodeResultByIdandTimestamp(arr) {
     });
 }
 
+export function isEmptyOrNullOrUndefined(value) {
+    return value === "" || value === null || value === undefined;
+}
+
+export function stringDateFormat(date, timeOnly = false) {
+    const now = new Date(date); // original timestamp still intact
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+    if (timeOnly)
+        return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+    else
+        return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+
+}
+
 
 
 export function consoleLogMessage(value, funcName = '') {
     const message = `${funcName} ${value}`.trim();
     console.log(message);
 }
-export default { enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, sortBarcodeResultByIdandTimestamp, isNegativeOrZero, isNumberRange, isNumberLarger, areNumbersEqual, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };
+export default { stringDateFormat, isEmptyOrNullOrUndefined, enableLogging, isNumber, isInteger, isFinite, isNumeric, isBoolean, sortBarcodeResultByIdandTimestamp, isNegativeOrZero, isNumberRange, isNumberLarger, areNumbersEqual, splitRange, isCommaSeparatedList, splitCommaSeparatedList, consoleLogMessage };

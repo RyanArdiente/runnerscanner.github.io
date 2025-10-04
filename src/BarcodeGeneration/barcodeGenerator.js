@@ -8,8 +8,8 @@ const CommaSeparatedList = 'CommaSeparatedList'
 const settings = {
     format: "CODE128",
     lineColor: "#000",
-    width: 2,
-    height: 50,
+    width: 4,
+    height: 100,
     displayValue: true,
 };
 

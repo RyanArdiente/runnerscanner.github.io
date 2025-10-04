@@ -3,7 +3,7 @@ import * as barcodeRepository from "/src/BarcodeProcessing/BarcodeRepository.js"
 
 
 export function initQuagga() {
-    var cameraEnabled = false;
+    var QuaggaCameraEnabled = false;
     barcodeRepository.enableLogging(true);
     if (typeof Quagga === "undefined") {
         console.error("QuaggaJS not loaded. Did you include the CDN script?");
@@ -32,6 +32,7 @@ export function initQuagga() {
         }
         console.log("Quagga initialized, starting...");
         Quagga.start();
+        QuaggaCameraEnabled = true;
     });
 
     // Optional: debug overlays
@@ -72,10 +73,10 @@ export function initQuagga() {
     // Detection handler
     Quagga.onDetected(function(result) {
         var code = result.codeResult.code;
-        console.log("Detected code:", result.codeResult.code);
-        var scanSuccessful = barcodeRepository.handleScan(code);
-        console.log(scanSuccessful);
-        if (scanSuccessful) {
+        //console.log("Detected code:", result.codeResult.code);
+        var scanSuccessful = barcodeRepository.handleScan(code, SCAN_COOLDOWN);
+        //console.log(scanSuccessful);
+        if (scanSuccessful && QuaggaCameraEnabled) {
             // Create a new Audio object, providing the path to your sound file
             const mySound = new Audio('/assets/mixkit-correct-answer-tone-2870.wav');
 
@@ -89,8 +90,11 @@ export function initQuagga() {
         if (e.target.matches("button.stop")) {
             e.preventDefault();
             Quagga.stop();
-            cameraEnabled = false;
-
+            QuaggaCameraEnabled = false;
+            var enableCamera = document.getElementById('enableCamera');
+            var disableCamera = document.getElementById('disableCamera');
+            disableCamera.disabled = true;
+            enableCamera.disabled = true;
             /*const cameraContainer = document.getElementById("cameraContainerDiv");
             if (cameraContainer) {
                 cameraContainer.innerHTML = ""; // Clears the inner content

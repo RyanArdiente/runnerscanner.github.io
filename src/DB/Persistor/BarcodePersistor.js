@@ -7,6 +7,7 @@ export function enableLogging(enable) {
     _enableLogging = enable;
 }
 
+util.enableLogging(_enableLogging);
 
 async function addBarcode(barcodeId, timestamp) {
     try {
@@ -18,4 +19,16 @@ async function addBarcode(barcodeId, timestamp) {
             util.consoleLogMessage(`Failed to add barcode error: ${error}`, 'addBarcode:');
     }
 }
-export default { addBarcode };
+
+async function clearTable() {
+    try {
+        await db.barcodes.clear();
+        if (_enableLogging)
+            util.consoleLogMessage(`Barcode Table has been cleared.`, 'clearTable:');
+    } catch (error) {
+        if (_enableLogging)
+            util.consoleLogMessage(`Failed to clear Barcode Table error: ${error}`, 'clearTable:');
+    }
+}
+
+export default { addBarcode, clearTable };

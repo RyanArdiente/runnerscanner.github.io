@@ -39,7 +39,7 @@ export function validateBarcodeForm(id) {
 
 }
 
-function checkInputIsSingleNumber(value) {
+export function checkInputIsSingleNumber(value) {
     var isSingleNumber = false;
 
     isSingleNumber = util.isNumeric(value);

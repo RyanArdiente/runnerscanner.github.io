@@ -12,7 +12,7 @@ export function barcodeHtml(value) {
 }
 
 export function allResultsTableCreate(allResults, tableId) {
-    new gridjs.Grid({
+    return new gridjs.Grid({
         columns: [{
                 id: "barcodeId",
                 name: "Runner",
@@ -40,7 +40,7 @@ export function allResultsTableCreate(allResults, tableId) {
 }
 
 export function allCountsTableCreate(allCounts, tableId) {
-    new gridjs.Grid({
+    return new gridjs.Grid({
         columns: [{
             id: "barcodeId",
             name: "Runner",
