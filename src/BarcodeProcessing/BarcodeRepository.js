@@ -3,9 +3,7 @@ import bProvider from "/src/DB/Provider/BarcodeProvider.js"
 import bPersistor from "/src/DB/Persistor/BarcodePersistor.js"
 
 let _enableLogging = false; //Default set to false
-// Time threshold (ms) to prevent duplicate scans
-//const SCAN_COOLDOWN = 5000; // 5 seconds for testing
-//const SCAN_COOLDOWN = 30000 // THIS WILL BE THE INITIAL COOLDOWN
+let _scanCooldown = 15000; // default cooldown in ms
 
 export function enableLogging(enable) {
     _enableLogging = enable;
@@ -85,9 +83,12 @@ export async function getAllBarcodeCounts() {
             util.consoleLogMessage(`Error occured while trying to get all barcodes. error: ${error}`, "getAllBarcodeCounts:");
     }
 }
-export function handleScan(barcode, SCAN_COOLDOWN = 15000) {
+export function handleScan(barcode) {
+    const SCAN_COOLDOWN = _scanCooldown; // in milliseconds
     const now = Date.now();
     const lastScans = JSON.parse(localStorage.getItem("scanData") || "{}");
+    const messageDiv = document.getElementById("Message");
+
 
 
     if (lastScans[barcode]) {
@@ -96,6 +97,9 @@ export function handleScan(barcode, SCAN_COOLDOWN = 15000) {
         if (diff < SCAN_COOLDOWN) {
             if (_enableLogging)
                 util.consoleLogMessage(`Scan ignored for barcode: ${barcode}, only ${diff}ms since last scan.`, 'handleScan:');
+            messageDiv.innerText = `Scan ignored for barcode: ${barcode}, only ${diff/1000} seconds since last scan.`;
+            messageDiv.classList.add('uk-alert-warning');
+            messageDiv.classList.remove('uk-alert-success');
             return false;
         } else {
             // Cooldown has passed → remove the old record
@@ -113,6 +117,10 @@ export function handleScan(barcode, SCAN_COOLDOWN = 15000) {
     addBarcode(barcode);
     if (_enableLogging)
         util.consoleLogMessage(`Valid scan recorded for ${barcode} at ${new Date(now).toLocaleTimeString()}`, 'handleScan:');
+    messageDiv.innerText = `Valid scan recorded for ${barcode} at ${new Date(now).toLocaleTimeString()}`;
+
+    messageDiv.classList.remove('uk-alert-warning');
+    messageDiv.classList.add('uk-alert-success');
     return true;
 }
 

@@ -25,7 +25,7 @@
                     <ul class="uk-navbar-nav" uk-switcher="connect: #component-nav-tabs; animation: uk-animation-fade">
                         <li class="uk-active"><a href="#">Home</a></li>
                         <li><a href="#">Print Barcodes</a></li>
-                        <li><a href="#">Live Scanner</a></li>
+                        <li><a href="#">Live Demo</a></li>
                         <li><a href="#">Display Runner Stats</a></li>
                         <li><a href="#">Settings</a></li>
 
@@ -41,41 +41,41 @@
             <!-- This is the content switcher controlled by the tabs -->
             <div id="component-nav-tabs" class="uk-switcher uk-margin">
                 <div id="homeGrid" class="uk-container uk-margin-remove-top" uk-grid>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h1>Runner Scanner</h1>
                     </div>
                     <!-- HOME LANDING PAGE -->
-                    <div class="uk-width-1-2@m">
+                    <div class="uk-width-1-1@s uk-width-1-2@m uk-text-break">
                         <h3>Application Information</h3>
                         <p>This is a demo for a multiple runner lap tracking app, that also allows for generating barcodes on the fly. Primary use for this is to demonstrate how easy this can be used for a school jogging marathon. To quickly keep track of
-                            multiple runner's progress while allowing for quick scanning of a barcode to take lap notation, keep an audit of a timestamp and keep track of laps. There are many different applications that this can solve, not just keeping
+                            multiple runner"s progress while allowing for quick scanning of a barcode to take lap notation, keep an audit of a timestamp and keep track of laps. There are many different applications that this can solve, not just keeping
                             track of how many laps someone has ran. This demo shows how quick and easy the app can be used to get up and start keeping track.</p>
                     </div>
-                    <div class="uk-width-1-2@m">
+                    <div class="uk-width-1-1@s uk-width-1-2@m">
                         <h3>Progressive Web App</h3>
-                        <p>This app has the capability of being used offline and cached to your browser. You can use it out on the field and still be able to scan and keep track of times scanned. The demo data is store locally in your browser's cache.</p>
+                        <p class="uk-text-break">This app has the capability of being used offline and cached to your browser. You can use it out on the field and still be able to scan and keep track of times scanned. The demo data is store locally in your browser"s cache.</p>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Racer Barcode Generation</h3>
                         <p>Please click <a href="#" uk-switcher-item="1">here to switch to the next Part of the Demo</a></p>
                     </div>
                 </div>
                 <div id="barcodeGrid" class="uk-container uk-margin-remove-top" uk-grid>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h1>Print Barcodes</h1>
                     </div>
                     <!-- START Barcode Generation PAGE -->
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Barcode Generation</h3>
-                        <p>The Demo app provides a quick way to generate many barcodes or a specific set of barcodes. The barcodes will only be unique as long as you don't give different multiple runners the same barcode number. The a future version will
+                        <p>The Demo app provides a quick way to generate many barcodes or a specific set of barcodes. The barcodes will only be unique as long as you don"t give different multiple runners the same barcode number. The a future version will
                             have a way to uniquely create barcodes. Print out you barcodes and attach them to your runner. When the runner completes a lap you just scan the barcode, once you hear the scan complete chime you scan the next barcode. <br/>                            To print them out please use the print functionality from your browser.
                         </p>
                     </div>
-                    <div class="uk-width-1-2@m">
+                    <div class="uk-width-1-1@s uk-width-1-2@m">
                         <h3>Generator Instructions</h3>
                         <p>To generate barcodes please put any number, range of numbers, or comma separated numbers. Ex: 40 or 1-40 or 2,4,5,6,26,88 </p>
                     </div>
-                    <div class="uk-width-1-2@m">
+                    <div class="uk-width-1-1@s uk-width-1-2@m">
                         <h3>Barcode Generator</h3>
                         <form id="generateBarcodeForm" autocomplete="off">
 
@@ -90,50 +90,93 @@
 
                         </form>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Create Race</h3>
                         <p>Please click <a href="#" uk-switcher-item="2">here to switch to the next Part of the Demo</a></p>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <div id="generatedBarcodeContainer" uk-grid></div>
                     </div>
                     <!-- END Barcode Generation PAGE -->
 
                 </div>
                 <div class="uk-container uk-margin-remove-top" uk-grid>
-                    <div class="uk-width-1-1@m">
-                        <h1>Live Scanner</h1>
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
+                        <h1>Live Demo</h1>
                     </div>
                     <!-- START Barcode SCANNER PAGE -->
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Start Race</h3>
-                        <p>Here we can begin the race and start tracking the time for each runner that you scan. Clicking the enable camera button will start the race timer and begin keeping track of the race. The race will end when you click on the disable
+                        <p class="uk-text-break">Here we can begin the race and start tracking the time for each runner that you scan. Clicking the enable camera button will start the race timer and begin keeping track of the race. The race will end when you click on the disable
                             camera button. A start time will not overwrite the current start timer so if you need to refresh your page you can do so. Once a race has started and ended the scanner will no longer allow scanning.
+                            <br/> Before you enable the camera please make sure you set the lap cooldown time, this will not reset until the cooldown has ended. This is the amount of time that must pass before a runner can be scanned again. This is to
+                            prevent accidental double scans if a runner crosses the line multiple times or if the camera picks up the barcode multiple times. The default is set to 15 seconds.
                         </p>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h4>Current Race: <span id="currentRace">1</span><span></span>
                         </h4>
                         <h5>Start: <span id="raceStartTime">N/A</span>
                             <br/> End: <span id="raceEndTime">N/A</span></h5>
                     </div>
                     <!-- START Barcode SCANNER PAGE -->
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m uk-text-break">
                         <h3>Live Scanner</h3>
                         <p>Here we demonstrate how the scanner functions. Please click the Enable Camera button to demo the camera<br/> If you dont have a way to print out the demo barcodes please click the button on the right to emulate how the camera functionality
                             works.
                         </p>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Demo Barcodes Scanned Display Functionality</h3>
                         <p>Please click <a href="#" uk-switcher-item="3">here to switch to the next Part of the Demo</a></p>
                     </div>
-                    <div class="uk-width-1-1@m">
+                    <div class="uk-width-1-1@s uk-width-1-1@m">
                         <h3>Scanner</h3>
                         <div class="controls">
-                            <fieldset class="input-group">
-                                <button id="enableCamera" class="uk-button uk-button-primary start">Enable Camera</button>
-                                <button id="disableCamera" class="uk-button uk-button-danger stop">Disable Camera</button>
+                            <fieldset>
+                                <div class="uk-float-left">
+                                    <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
+                                        <div class="ui-width-1-1@m">
+
+                                            <button id="enableCamera" class="uk-button uk-button-primary start">Enable Camera</button>
+                                            <button id="disableCamera" class="uk-button uk-button-danger stop">Disable Camera</button>
+                                        </div>
+                                    </div>
+                                    <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
+
+                                        <div class="ui-width-1-1@m">
+
+                                            <div id="messageContainer" class="uk-margin">
+                                                <p id="Message" class="uk-text-secondary"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="uk-float-right">
+                                    <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+                                        <div class="ui-width-1-3@m">
+                                            <svg key="1" id="barcode-1" uk-svg></svg>
+                                        </div>
+                                        <div class="ui-width-1-3@m">
+                                            <svg key="2" id="barcode-2" uk-svg></svg>
+                                        </div>
+                                        <div class="ui-width-1-3@m">
+                                            <svg key="3" id="barcode-3" uk-svg></svg>
+                                        </div>
+                                    </div>
+                                    <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+                                        <div>
+                                            <button key="1" class="uk-button uk-button-default uk-width-1-1 rsDemoBarcodes">Barcode 1</button>
+                                        </div>
+                                        <div>
+                                            <button key="2" class="uk-button uk-button-default uk-width-1-1 rsDemoBarcodes">Barcode 2</button>
+                                        </div>
+                                        <div>
+                                            <button key="3" class="uk-button uk-button-default uk-width-1-1 rsDemoBarcodes">Barcode 3</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </fieldset>
                             <fieldset class="reader-config-group">
                                 <label>
@@ -160,13 +203,7 @@
                                 </label>
                                 <label>
                                     <span>Lap Cooldown</span>
-                                    <select name="lapCooldown" id="lapCooldown">
-                                        <option value="0">0</option>
-                                        <option value="15" selected="selected">15</option>
-                                        <option value="30">30</option>
-                                        <option value="60">60</option>
-                                        <option value="120">120</option>
-                                    </select>
+                                     <input type="input" id="lapCooldown" name="lapCooldown" value="15" disabled />
                                 </label>
                             </fieldset>
                         </div>

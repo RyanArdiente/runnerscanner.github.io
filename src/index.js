@@ -54,8 +54,7 @@ window.onload = async function() {
     //Check if race has a start
     var raceHasStarted = await raceRepository.getRaceInformation('start');
     var raceHasEnded = await raceRepository.getRaceInformation('end');
-    console.log(raceHasStarted);
-    console.log(raceHasEnded);
+
     var hasRaceStarted = !util.isEmptyOrNullOrUndefined(raceHasStarted);
     var hasRaceEnded = !util.isEmptyOrNullOrUndefined(raceHasEnded);
     const raceStartTime = this.document.getElementById('raceStartTime');
@@ -69,12 +68,12 @@ window.onload = async function() {
     disableCamera.addEventListener("click", EndRace)
 
     if (hasRaceStarted) {
-        enableCamera.disabled = true;
+        //enableCamera.disabled = true;
         raceStartTime.innerText = raceHasStarted;
-        enableCamera.removeEventListener("click", InitCamera);
     }
     if (hasRaceEnded) {
         disableCamera.disabled = true;
+        enableCamera.disabled = true;
         raceEndTime.innerText = raceHasEnded;
         disableCamera.removeEventListener("click", EndRace);
     }
@@ -97,6 +96,39 @@ window.onload = async function() {
         allCountsGrid = htmlGen.allCountsTableCreate(allCounts, "allCountsTable");
         allResultsGrid = htmlGen.allResultsTableCreate(allResults, "allResultsTable");
     });
+    //Setup demo barcodes
+    var demoBarcodes = [1, 2, 3];
+    const demoSettings = {
+        format: "CODE128",
+        lineColor: "#000",
+        width: 2,
+        height: 50,
+        displayValue: true,
+    };
+    for (const value of demoBarcodes) {
+        JsBarcode(`#barcode-${value}`, `${value}`, demoSettings);
+
+    }
+    const demoBarcodeButtons = document.querySelectorAll('.rsDemoBarcodes');
+
+    if (!hasRaceStarted) {
+        demoBarcodeButtons.forEach(element => {
+            element.setAttribute("disabled", "");
+        });
+
+    } else {
+        demoBarcodeButtons.forEach(element => {
+            element.disabled = false;
+        })
+    }
+    if (hasRaceEnded) {
+        demoBarcodeButtons.forEach(element => {
+            element.removeAttribute('disabled');
+        });
+
+    }
+
+
     //MODAL
     const deleteTable = this.document.getElementById('DeleteTable');
     deleteTable.addEventListener("click", async function(event) {
@@ -106,9 +138,14 @@ window.onload = async function() {
 
     });
 
+
+
     async function InitCamera() {
         var enableCamera = document.getElementById('enableCamera');
         enableCamera.removeEventListener("click", InitCamera);
+
+
+        // pass current cooldown to camera init (optional)
         camera.initQuagga();
         if (_enableLogging)
             util.consoleLogMessage(`hasRaceStarted: ${hasRaceStarted}`, "index.js InitCamera")
@@ -119,15 +156,41 @@ window.onload = async function() {
             var raceInfo = await raceRepository.setRaceInformation('start');
             raceStartTime.innerText = raceInfo;
         }
+        const elementsToAddListeners = document.querySelectorAll('.rsDemoBarcodes');
+        elementsToAddListeners.forEach(element => {
+            element.addEventListener('click', demoBarcodeScan);
+            element.disabled = false;
+        });
 
     }
 
     async function EndRace() {
         var disableCamera = document.getElementById('disableCamera');
         disableCamera.removeEventListener("click", EndRace);
+        var enableCamera = document.getElementById('enableCamera');
+        enableCamera.removeEventListener("click", InitCamera);
         await raceRepository.setRaceInformation('end');
         var endInfo = await raceRepository.setRaceInformation('end');
         raceEndTime.innerText = endInfo;
-    }
+        enableCamera.disabled = true;
+        const elementsToRemoveListeners = document.querySelectorAll('.rsDemoBarcodes');
 
+        // 4. Iterate and remove the event listener using the same function reference
+        elementsToRemoveListeners.forEach(element => {
+            element.removeEventListener('click', demoBarcodeScan);
+            element.disabled = true;
+
+        });
+
+    }
+    async function demoBarcodeScan(event) { // Select the desired child element within event.target
+        var code = event.target.getAttribute('key');
+
+        //console.log(`demo barcode scan: ${code}`);
+        var scanSuccessful = barcodeRepository.handleScan(code);
+        if (scanSuccessful) {
+            const mySound = new Audio('/assets/mixkit-correct-answer-tone-2870.wav');
+            mySound.play();
+        }
+    }
 };

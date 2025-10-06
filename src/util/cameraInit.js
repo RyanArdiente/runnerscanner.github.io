@@ -2,7 +2,7 @@
 import * as barcodeRepository from "/src/BarcodeProcessing/BarcodeRepository.js"
 
 
-export function initQuagga() {
+export function initQuagga(optionalooldown) {
     var QuaggaCameraEnabled = false;
     barcodeRepository.enableLogging(true);
     if (typeof Quagga === "undefined") {
@@ -73,9 +73,8 @@ export function initQuagga() {
     // Detection handler
     Quagga.onDetected(function(result) {
         var code = result.codeResult.code;
-        //console.log("Detected code:", result.codeResult.code);
-        var scanSuccessful = barcodeRepository.handleScan(code, SCAN_COOLDOWN);
-        //console.log(scanSuccessful);
+        // let repository use its configured cooldown (or pass explicit if needed)
+        var scanSuccessful = barcodeRepository.handleScan(code);
         if (scanSuccessful && QuaggaCameraEnabled) {
             // Create a new Audio object, providing the path to your sound file
             const mySound = new Audio('/assets/mixkit-correct-answer-tone-2870.wav');
